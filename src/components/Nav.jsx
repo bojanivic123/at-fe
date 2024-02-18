@@ -12,7 +12,7 @@ const Nav = () => {
                 <Link to={"/register"}>Register</Link>
                 <Link to={"/login"}>Login</Link>
             </> : 
-                <Link onClick={() => logout()}>Logout</Link>
+                <button onClick={() => logout()}>Logout</button>
             }
         </div>
     );

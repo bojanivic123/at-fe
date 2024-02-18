@@ -2,11 +2,11 @@ import axios from "axios";
 
 export default class HttpService {
     static #api = axios.create({
-        baseURL: "http://localhost:8000/api",
+        baseURL: "http://localhost:8000/api/",
         timeout: 4500,
         withCredentials: true,
         headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json"
         }
     });
