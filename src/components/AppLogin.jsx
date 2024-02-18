@@ -9,22 +9,23 @@ const AppLogin = () => {
         email: "",
         password: ""
     });
-    const {setUser} = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             setIsLoading(true);
             setError("");
-            const result = await AuthService.login(data);
-            setUser(result.user);
-            Storage.setString("token", result.token);
+            const { data: userData } = await AuthService.login(data);
+            setUser(userData.user);
+            Storage.setString("token", userData.token);
             navigate("/");
         } catch (err) {
-            console.log(err);
+            setError(err?.response?.data?.message); 
         } finally {
             setIsLoading(false);
         }

@@ -13,22 +13,23 @@ const AppRegister = () => {
         password_confirmation: ""
     });
 
-    const {setUser} = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false); 
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             setError("");
             setIsLoading(true);
-            const result = await AuthService.register(data);
-            setUser(result.user);
-            Storage.setString("token", result.token);
+            const { data: userData } = await AuthService.register(data);
+            setUser(userData.user);
+            Storage.setString("token", userData.token);
             navigate("/");
         } catch (err) {
-            console.log(err);
+            setError(err?.response?.data?.message);
         } finally {
             setIsLoading(false);
         }
